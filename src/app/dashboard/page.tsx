@@ -1,10 +1,19 @@
-import Sidebar from '@/component/Sidebar'
 import React from 'react'
+import Sidebar from '@/components/Sidebar'
+
+const HomePage = () => {
+  return (
+    <div className='p-7'>
+      <h1 className="text-2xl font-semibold"> Home Page</h1>
+    </div>
+  )
+}
 
 const Dashboard = () => {
   return (
-    <div>
+    <div className='flex'>
       <Sidebar/>
+      <HomePage/>
     </div>
   )
 }

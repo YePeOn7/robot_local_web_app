@@ -1,4 +1,4 @@
-import YawSubscriber from "@/component/YawSubscriber";
+import YawSubscriber from "@/components/YawSubscriber";
 import Image from "next/image";
 
 export default function Home() {
