@@ -20,7 +20,7 @@ const YawSubscriber : React.FC = () => {
 
   return (
     <div>
-      <p>{yaw !== null ? `Yaw: ${yaw}` : 'Waiting for data...'}</p>
+      <p>{yaw !== null ? `Yaw: ${yaw.toFixed(2)}` : 'Waiting for data...'}</p>
     </div>
   );
 }
