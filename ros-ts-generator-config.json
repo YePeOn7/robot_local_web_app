@@ -1,0 +1,12 @@
+{
+    "output": ".src/message_types/ros_msgs.ts",
+    "rosVersion": 1,
+    "useNamespaces": false, 
+    "smartEnums": true, 
+    "input": [
+        {
+            "namespace": "std_msgs",
+            "path": "/opt/ros/noetic/share/std_msgs"
+        }
+    ]
+}
