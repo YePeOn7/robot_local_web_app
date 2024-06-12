@@ -27,6 +27,10 @@ class YawTopic {
       callback(float32Message);
     });
   }
+
+  unsubscribe(){
+    this.yawTopic.unsubscribe();
+  }
 }
 
 export default YawTopic;
