@@ -1,7 +1,7 @@
 import React from 'react'
 import Sidebar from '@/components/Sidebar'
 import SampleCharts from '@/components/SampleCharts'
-import { BatteryCard } from '@/components/InfoCard/InfoCard'
+import { BatteryCard, IMUCard } from '@/components/InfoCard/InfoCard'
 
 const Content = () => {
   return (
@@ -10,8 +10,8 @@ const Content = () => {
         <h1 className="text-2xl font-semibold mb-12 font-poppins"> Dashboard</h1>
         {/* <SampleCharts/> */}
         <div className='flex gap-3'>
-          <BatteryCard soc={82} voltage={51.2} />
-          <BatteryCard soc={82} voltage={51.2} />
+          <BatteryCard soc={82} voltage={51.2} current={1.2}/>
+          <IMUCard angle={0}/>
         </div>
       </div>
     </div>
