@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { IconType } from 'react-icons'
 import { RiDashboardFill } from 'react-icons/ri'
 import { BsArrowLeftShort, BsSearch } from 'react-icons/bs'
-import { FaChevronLeft } from 'react-icons/fa'
+import { FaChevronDown, FaChevronLeft } from 'react-icons/fa'
 import { AiFillEnvironment } from 'react-icons/ai'
 
 interface ItemProps {
@@ -31,6 +31,7 @@ const Item: React.FC<ItemProps> = ({ href, Icon, label }) => {
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
+  const [opensub, setOpensub] = useState(true);
 
   const Menus = [
     { title: "Dashboard" },
@@ -63,21 +64,36 @@ const Sidebar = () => {
 
       <div className={`flex min-h-10 items-center rounded-md bg-light-white mt-6 ${!open ? 'px-3' : 'px-4'} py-2`}>
         <span className={`text-white float-left text-lg cursor-pointer block ${open && 'mr-2'}`}>
-          <BsSearch/>
+          <BsSearch />
         </span>
         <input type="search" className={`text-base w-full text-white bg-transparent focus:outline-none ${!open && 'hidden'}`} placeholder='Search' />
       </div>
 
       <ul className='pt-2'>
         {Menus.map((menu, index) => (
-          <li className={`text-white flex items-center gap-x-4 p-2 cursor-pointer hover:bg-light-white rounded-lg ${menu.spacing ? 'mt-9' : 'mt-2'}`} key={index}>
-            <span className='text-2xl block'>
-              <RiDashboardFill />
-            </span>
-            <span className={`origin-left ${!open && 'scale-0'}`}>
-              {menu.title}
-            </span>
-          </li>
+          <>
+            <li className={`text-white flex items-center gap-x-4 p-2 cursor-pointer hover:bg-light-white rounded-lg ${menu.spacing ? 'mt-9' : 'mt-2'}`} key={index}>
+              <span className='text-2xl block'>
+                <RiDashboardFill />
+              </span>
+              <span className={`origin-left ${!open && 'scale-0'}`}>
+                {menu.title}
+              </span>
+              {menu.submenuItems ?
+                <FaChevronDown className={`ml-auto ${opensub && 'rotate-180'}`} onClick={()=>{setOpensub(!opensub)}}/> : ''}
+            </li>
+
+            {
+              menu.submenuItems && opensub ?
+                <ul className='text-white'>
+                  {menu.submenuItems.map((item, index) => (
+                    <li key={index} className='flex items-center gap-x-4 p-2 pl-6 cursor-pointer hover:bg-light-white rounded-lg'>
+                      {item.title}
+                    </li>
+                  ))}
+                </ul> : ''
+            }
+          </>
         ))}
       </ul>
 
