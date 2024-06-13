@@ -11,6 +11,8 @@ const config: Config = {
       colors: {
         "dark-purple": "#36B",
         "light-white": "rgba(255,255,255,0.18)",
+        "bgColor": "#fbfbfb",
+        "primary": "rgba(254, 240, 138, 1)"
       },
     },
   },
