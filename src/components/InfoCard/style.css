@@ -1,0 +1,16 @@
+.CircularProgressbar {
+  /* width: 4rem !important; */
+  overflow: visible;
+}
+.CircularProgressbar-path {
+  stroke: var(--primary-color) !important;
+  stroke-width: 6px !important;
+  filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 0.2));
+}
+.CircularProgressbar-trail {
+  display: none;
+}
+.CircularProgressbar-text {
+  fill: black !important;
+  font-weight: bold;
+}

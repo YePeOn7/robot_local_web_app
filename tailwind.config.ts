@@ -12,8 +12,11 @@ const config: Config = {
         "dark-purple": "#36B",
         "light-white": "rgba(255,255,255,0.48)",
         "bgColor": "#fbfbfb",
-        "primary": "rgba(254, 240, 138, 1)"
+        "primary": 'var(--primary-color)'
       },
+      fontFamily: {
+        poppins: ['var(--font-poppins)']
+      }
     },
   },
   plugins: [],
