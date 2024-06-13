@@ -6,9 +6,10 @@ import logo from '@/../public/logoFull.png'
 import Link from 'next/link'
 import { IconType } from 'react-icons'
 import { RiDashboardFill } from 'react-icons/ri'
-import { BsArrowLeftShort, BsSearch } from 'react-icons/bs'
+import { BsArrowLeftShort, BsFillImageFill, BsPerson, BsReverseLayoutTextSidebarReverse, BsSearch } from 'react-icons/bs'
 import { FaChevronDown, FaChevronLeft } from 'react-icons/fa'
-import { AiFillEnvironment } from 'react-icons/ai'
+import { AiFillEnvironment, AiOutlineBarChart, AiOutlineFileText, AiOutlineLogout, AiOutlineMail, AiOutlineSetting } from 'react-icons/ai'
+import { PiEmpty } from 'react-icons/pi'
 
 interface ItemProps {
   href: string,
@@ -34,11 +35,12 @@ const Sidebar = () => {
   const [opensub, setOpensub] = useState(true);
 
   const Menus = [
-    { title: "Dashboard" },
-    { title: "Pages" },
-    { title: "Media", spacing: true },
+    { title: "Dashboard", icon: <RiDashboardFill /> },
+    { title: "Pages", icon: <AiOutlineFileText /> },
+    { title: "Media", spacing: true, icon: <BsFillImageFill /> },
     {
       title: "Projects",
+      icon: <BsReverseLayoutTextSidebarReverse />,
       submenu: true,
       submenuItems: [
         { title: "Submenu 1" },
@@ -46,11 +48,11 @@ const Sidebar = () => {
         { title: "Submenu 3" },
       ],
     },
-    { title: "Analytics" },
-    { title: "Inbox" },
-    { title: "Profile", spacing: true },
-    { title: "Setting" },
-    { title: "Logout" },
+    { title: "Analytics", icon: <AiOutlineBarChart /> },
+    { title: "Inbox", icon: <AiOutlineMail /> },
+    { title: "Profile", spacing: true, icon: <BsPerson /> },
+    { title: "Setting", icon: <AiOutlineSetting /> },
+    { title: "Logout", icon: <AiOutlineLogout /> },
   ];
 
   return (
@@ -71,29 +73,29 @@ const Sidebar = () => {
 
       <ul className='pt-2'>
         {Menus.map((menu, index) => (
-          <>
+          <div key={index}>
             <li className={`text-white flex items-center gap-x-4 p-2 cursor-pointer hover:bg-light-white rounded-lg ${menu.spacing ? 'mt-9' : 'mt-2'}`} key={index}>
               <span className='text-2xl block'>
-                <RiDashboardFill />
+                {menu.icon? menu.icon:<PiEmpty />}
               </span>
-              <span className={`origin-left ${!open && 'scale-0'}`}>
-                {menu.title}
+              <span className={`origin-left ${!open && 'scale-0'} flex-1`}>
+                {menu.title} 
               </span>
-              {menu.submenuItems ?
-                <FaChevronDown className={`ml-auto ${opensub && 'rotate-180'}`} onClick={()=>{setOpensub(!opensub)}}/> : ''}
+              {menu.submenu &&
+                <FaChevronDown className={`${opensub && 'rotate-180'}`} onClick={() => { setOpensub(!opensub) }} />}
             </li>
 
             {
-              menu.submenuItems && opensub ?
-                <ul className='text-white'>
-                  {menu.submenuItems.map((item, index) => (
-                    <li key={index} className='flex items-center gap-x-4 p-2 pl-6 cursor-pointer hover:bg-light-white rounded-lg'>
-                      {item.title}
-                    </li>
-                  ))}
-                </ul> : ''
+              menu.submenuItems && opensub && open &&
+              <ul className='text-white'>
+                {menu.submenuItems.map((item, index) => (
+                  <li key={index} className='flex items-center gap-x-4 p-2 pl-6 cursor-pointer hover:bg-light-white rounded-lg'>
+                    {item.title} 
+                  </li>
+                ))}
+              </ul>
             }
-          </>
+          </div>
         ))}
       </ul>
 
