@@ -1,7 +1,8 @@
 import React from 'react'
 import Sidebar from '@/components/Sidebar'
-import { BatteryCard, IMUCard } from '@/components/InfoCard/InfoCard'
+import { BatteryCard, IMUCard, MotorErrorCard } from '@/components/InfoCard/InfoCard'
 import { SampleAreaChart, SampleChart1, SampleChart2, SampleChart3 } from '@/components/SampleCharts'
+import { IconErrorStatus } from '@/components/IconStatus'
 
 const Content = () => {
   return (
@@ -18,6 +19,7 @@ const Content = () => {
           <BatteryCard soc={82} voltage={51.2} current={1.2} />
           <IMUCard angle={0} />
         </div>
+        <MotorErrorCard errorCode={1}/>
       </div>
     </div>
   )
