@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { GiBatteryPackAlt } from 'react-icons/gi';
@@ -9,6 +9,7 @@ import './style.css'
 import { FaRegCompass } from 'react-icons/fa';
 import { ImCompass } from 'react-icons/im';
 import { IconErrorStatus } from '../IconStatus';
+import YawTopic from '@/ros_topics/yaw';
 
 interface InfoCardProps {
   soc: number,
@@ -16,21 +17,30 @@ interface InfoCardProps {
   current: number
 }
 
-interface InfoImuProps {
-  angle: number
-}
-
 interface MotorErrorProps {
   errorCode: number
 }
 
-const IMUCard: React.FC<InfoImuProps> = ({ angle }) => {
+const IMUCard: React.FC = () => {
+  const [yaw, setYaw] = useState<number>(0);
+  const yawTopic = useMemo(() => new YawTopic(), []);
+
+  useEffect(() => {
+    yawTopic.subscribe((msg) => {
+      setYaw(msg.data);
+    })
+
+    return () => {
+      yawTopic.unsubscribe();
+    }
+  }, [yawTopic])
+
   return (
     <div className='info-card flex flex-1 w-64 h-44 p-3 gap-2 bg-white shadow-lg rounded-xl hover:shadow-none'>
       <div className="info flex flex-col flex-1 justify-between">
         <div className='flex flex-col'>
           <span className='font-poppins font-light text-xl'>IMU</span>
-          <span className='text-xl font-bold'>{angle}&deg;</span>
+          <span className='text-xl font-bold'>{yaw.toFixed(2)}&deg;</span>
         </div>
         <FaRegCompass className='text-5xl' />
       </div>
@@ -40,7 +50,7 @@ const IMUCard: React.FC<InfoImuProps> = ({ angle }) => {
             <circle r="60" cx="60" cy="60" style={{ fill: `var(--primary-color)` }} />
           </svg>
           <div className=''>
-            <ImCompass className={`absolute top-1/2 left-1/2 text-[64px]`} style={{ transform: `translate(-50%, -50%) rotate(${angle - 45}deg)` }} />
+            <ImCompass className={`absolute top-1/2 left-1/2 text-[64px]`} style={{ transform: `translate(-50%, -50%) rotate(${-yaw - 45}deg)` }} />
           </div>
         </div>
       </div>
@@ -96,14 +106,40 @@ const MotorErrorCard: React.FC<MotorErrorProps> = ({ errorCode }) => {
     }
   })
 
-  const hexFormat= (value: number)=>{
+  const hexFormat = (value: number) => {
     let hex = value.toString(16);
     return hex.padStart(8, '0');;
   }
 
   useEffect(() => {
-
+    setError({
+      left: {
+        overVoltage: !!(errorCode & 1),
+        underVoltage: !!(errorCode >> 1 & 1),
+        overCurrent: !!(errorCode >> 2 & 1),
+        overLoad: !!(errorCode >> 3 & 1),
+        encoderValError: !!(errorCode >> 5 & 1),
+        refVoltageError: !!(errorCode >> 7 & 1),
+        eepromError: !!(errorCode >> 8 & 1),
+        halError: !!(errorCode >> 9 & 1),
+        highTemp: !!(errorCode >> 10 & 1),
+        encoderError: !!(errorCode >> 11 & 1),
+      },
+      right: {
+        overVoltage: !!(errorCode >> 16 & 1),
+        underVoltage: !!(errorCode >> 17 & 1),
+        overCurrent: !!(errorCode >> 18 & 1),
+        overLoad: !!(errorCode >> 19 & 1),
+        encoderValError: !!(errorCode >> 21 & 1),
+        refVoltageError: !!(errorCode >> 23 & 1),
+        eepromError: !!(errorCode >> 24 & 1),
+        halError: !!(errorCode >> 25 & 1),
+        highTemp: !!(errorCode >> 26 & 1),
+        encoderError: !!(errorCode >> 27 & 1),
+      }
+    })
   }, [errorCode])
+
   return (
     <div className='motor-error-code-container flex flex-col p-5 bg-white shadow-xl hover:shadow-none rounded-xl mt-5'>
       <h1 className='font-poppins font-light text-lg'>MOTOR</h1>

@@ -18,11 +18,11 @@ const Content = () => {
             </div>
             <div className='flex gap-3'>
               <BatteryCard soc={82} voltage={51.2} current={1.2} />
-              <IMUCard angle={0} />
+              <IMUCard/>
             </div>
           </div>
           <div>
-            <MotorErrorCard errorCode={15} />
+            <MotorErrorCard errorCode={0x800_0000} />
           </div>
         </div>
 
