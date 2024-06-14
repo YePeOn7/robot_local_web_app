@@ -141,7 +141,7 @@ const MotorErrorCard: React.FC<MotorErrorProps> = ({ errorCode }) => {
   }, [errorCode])
 
   return (
-    <div className='motor-error-code-container flex flex-col p-5 bg-white shadow-xl hover:shadow-none rounded-xl mt-5'>
+    <div className='motor-error-code-container flex flex-col p-5 bg-white shadow-xl hover:shadow-none rounded-xl'>
       <h1 className='font-poppins font-light text-lg'>MOTOR</h1>
       <div className='bg-primary rounded-lg my-3 py-3'>
         <h1 className='font-poppins font-bold text-center'>Error Code</h1>
