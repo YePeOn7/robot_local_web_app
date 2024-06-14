@@ -7,7 +7,7 @@ interface IconErrorStatusProps{
 
 const IconErrorStatus:React.FC<IconErrorStatusProps> = ({status}) => {
   return (
-    <span>
+    <span className='flex justify-center'>
       {status? <IoCloseCircle className='text-red-500 text-xl'/>
       : <IoCheckmarkCircleSharp className='text-green-500 text-xl'/> }
     </span>

@@ -96,18 +96,27 @@ const MotorErrorCard: React.FC<MotorErrorProps> = ({ errorCode }) => {
     }
   })
 
+  const hexFormat= (value: number)=>{
+    let hex = value.toString(16);
+    return hex.padStart(8, '0');;
+  }
+
   useEffect(() => {
 
   }, [errorCode])
   return (
-    <div className='motor-error-code flex flex-col p-3 bg-white shadow-xl hover:shadow-none rounded-xl'>
-      <h1 className='font-poppins font-semibold text-xl'>MOTOR ERROR STATUS</h1>
-      <table>
+    <div className='motor-error-code-container flex flex-col p-5 bg-white shadow-xl hover:shadow-none rounded-xl mt-5'>
+      <h1 className='font-poppins font-light text-lg'>MOTOR</h1>
+      <div className='bg-primary rounded-lg my-3 py-3'>
+        <h1 className='font-poppins font-bold text-center'>Error Code</h1>
+        <h2 className='font-poppins text-center'>{hexFormat(errorCode)}</h2>
+      </div>
+      <table className='motor-error-code-table'>
         <thead>
-          <tr>
-            <th></th>
-            <th>L</th>
-            <th>R</th>
+          <tr className='text-left '>
+            <th>Parameter</th>
+            <th className='text-center'>L</th>
+            <th className='text-center'>R</th>
           </tr>
         </thead>
         <tbody>

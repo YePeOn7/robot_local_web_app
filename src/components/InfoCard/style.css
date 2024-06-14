@@ -14,3 +14,29 @@
   fill: black !important;
   font-weight: bold;
 }
+
+.motor-error-code-table{
+  font-size: 0.7rem;
+}
+
+.motor-error-code-table th,
+.motor-error-code-table td {
+  padding: 4px 8px;
+}
+
+.motor-error-code-table tbody tr:nth-of-type(even){
+  background-color: #eee;
+}
+
+/* table, td, th {
+  border: 2px solid;
+} */
+
+table thead{
+  background-color: var(--primary-color);
+}
+
+table{
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+}
