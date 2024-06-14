@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import React, { useState } from 'react'
-import logo from '@/../public/logoFull.png'
+// import logo from '/logoFull.png'
 import Link from 'next/link'
 import { RiDashboardFill } from 'react-icons/ri'
 import { FaChevronLeft } from 'react-icons/fa'
@@ -39,7 +39,7 @@ const Sidebar = () => {
     <div className={`sidebar bg-primary h-screen flex flex-col pl-3 py-5 pt-8 ${open ? 'w-72' : 'w-20'}`}>
       <div className='logo flex items-center justify-between min-h-14 pr-5'>
         <span className={`${!open ? 'w-0' : 'w-72'}`}>
-          <Image src={logo} height={50} width={200} alt='' className={`overflow-hidden `} />
+          <Image src={'/logoFull.png'} height={50} width={200} alt='' className={`overflow-hidden `} />
         </span>
         <span className='w-10'>
           <FaChevronLeft className={`bg-white text-3xl py-1 px-2 rounded-lg cursor-pointer ${!open && 'rotate-180 ml-1'}`} onClick={() => { setOpen(!open) }} />
