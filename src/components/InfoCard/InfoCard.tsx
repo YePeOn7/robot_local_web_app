@@ -10,15 +10,27 @@ import { FaRegCompass } from 'react-icons/fa';
 import { ImCompass } from 'react-icons/im';
 import { IconErrorStatus } from '../IconStatus';
 import YawTopic from '@/ros_topics/yaw';
+import { Button } from "@/components/ui/button"
 
 interface InfoCardProps {
   soc: number,
   voltage: number,
   current: number
+  className?: string
+}
+interface BatteryProps {
+  soc: number,
+  voltage: number,
+  current: number,
+  className?: string
 }
 
 interface MotorErrorProps {
   errorCode: number
+  className?: string
+}
+interface ImuCardProps {
+  className?: string
 }
 
 const IMUCard: React.FC = () => {
@@ -59,7 +71,7 @@ const IMUCard: React.FC = () => {
   )
 }
 
-const IMUCardV2: React.FC = () => {
+const IMUCardV2: React.FC<ImuCardProps> = ({className}) => {
   const [yaw, setYaw] = useState<number>(0);
   const yawTopic = useMemo(() => new YawTopic(), []);
 
@@ -74,7 +86,7 @@ const IMUCardV2: React.FC = () => {
   }, [yawTopic])
 
   return (
-    <div className='info-card flex flex-col items-center justify-between flex-1 w-64 h-60 p-3 gap-2 bg-white shadow-lg rounded-xl hover:shadow-none'>
+    <div className={`info-card flex flex-col items-center justify-between p-3 gap-2 bg-white shadow-lg rounded-xl hover:shadow-none ${className}`}>
       <FaRegCompass className='text-7xl' />
       <h1 className='font-poppins'>IMU</h1>
       <h1 className='font-poppins text-6xl font-bold'>{yaw.toFixed(1)}</h1>
@@ -102,9 +114,9 @@ const BatteryCard: React.FC<InfoCardProps> = ({ soc, voltage, current = 0 }) => 
   )
 }
 
-const BatteryCardV2: React.FC<InfoCardProps> = ({ soc, voltage, current = 0 }) => {
+const BatteryCardV2: React.FC<BatteryProps> = ({ soc, voltage, current = 0, className }) => {
   return (
-    <div className='info-card flex flex-col items-center justify-evenly flex-1 w-64 h-60 p-3 gap-2 bg-white shadow-lg rounded-xl hover:shadow-none'>
+    <div className={`info-card flex flex-col items-center justify-evenly p-3 gap-2 bg-white shadow-lg rounded-xl hover:shadow-none ${className}`}>
       <GiBatteryPack className='text-6xl' />
       <h1 className='font-poppins'>Battery</h1>
       <div className='flex justify-center items-end'>
@@ -125,7 +137,7 @@ const BatteryCardV2: React.FC<InfoCardProps> = ({ soc, voltage, current = 0 }) =
   )
 }
 
-const MotorErrorCard: React.FC<MotorErrorProps> = ({ errorCode }) => {
+const MotorErrorCard: React.FC<MotorErrorProps> = ({ errorCode, className }) => {
   const [error, setError] = useState({
     left: {
       overVoltage: false,
@@ -188,7 +200,7 @@ const MotorErrorCard: React.FC<MotorErrorProps> = ({ errorCode }) => {
   }, [errorCode])
 
   return (
-    <div className='motor-error-code-container flex flex-col p-5 bg-white shadow-xl hover:shadow-none rounded-xl'>
+    <div className={`motor-error-code-container flex flex-col p-5 bg-white shadow-xl hover:shadow-none rounded-xl ${className}`}>
       <h1 className='font-poppins font-light text-lg'>MOTOR</h1>
       <div className='bg-primary rounded-lg my-3 py-3'>
         <h1 className='font-poppins font-bold text-center'>Error Code</h1>
@@ -255,6 +267,7 @@ const MotorErrorCard: React.FC<MotorErrorProps> = ({ errorCode }) => {
           </tr>
         </tbody>
       </table>
+      <Button>Test</Button>
     </div>
   )
 }
@@ -264,5 +277,5 @@ export {
   BatteryCardV2,
   IMUCard,
   IMUCardV2,
-  MotorErrorCard
+  MotorErrorCard,
 }
