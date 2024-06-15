@@ -48,7 +48,7 @@ const Sidebar = () => {
 
       <div className="flex flex-col mt-10 gap-2 flex-1">
         <SidebarItem href='#' icon={<RiDashboardFill />} label='Dashboard' open={open} active={true} />
-        <SidebarItem href='#' icon={<MdSpeed />} label='Monitor' open={open} />
+        <SidebarItem href='#' icon={<MdSpeed />} label='Set Command' open={open} />
         <SidebarItem href='#' icon={<AiOutlineBarChart />} label='Analytics' open={open} />
         <SidebarItem href='#' icon={<MdPlaylistAddCheck />} label='Test' open={open} />
       </div>

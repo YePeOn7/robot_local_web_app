@@ -200,9 +200,9 @@ const MotorErrorCard: React.FC<MotorErrorProps> = ({ errorCode, className }) => 
   }, [errorCode])
 
   return (
-    <div className={`motor-error-code-container flex flex-col p-5 bg-white shadow-xl hover:shadow-none rounded-xl ${className}`}>
-      <h1 className='font-poppins font-light text-lg'>MOTOR</h1>
-      <div className='bg-primary rounded-lg my-3 py-3'>
+    <div className={`motor-error-code-container flex flex-col gap-3 p-5 bg-white shadow-xl hover:shadow-none rounded-xl ${className}`}>
+      <h1 className='font-poppins font-light text-lg text-center'>MOTOR</h1>
+      <div className='bg-primary rounded-lg py-3'>
         <h1 className='font-poppins font-bold text-center'>Error Code</h1>
         <h2 className='font-poppins text-center'>{hexFormat(errorCode)}</h2>
       </div>
@@ -267,7 +267,7 @@ const MotorErrorCard: React.FC<MotorErrorProps> = ({ errorCode, className }) => 
           </tr>
         </tbody>
       </table>
-      <Button>Test</Button>
+      <Button>Reset Error Code</Button>
     </div>
   )
 }
