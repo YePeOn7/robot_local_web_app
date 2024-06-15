@@ -1,6 +1,6 @@
 import React from 'react'
 import Sidebar from '@/components/Sidebar'
-import { BatteryCard, IMUCard, MotorErrorCard } from '@/components/InfoCard/InfoCard'
+import { BatteryCard, BatteryCardV2, IMUCard, IMUCardV2, MotorErrorCard } from '@/components/InfoCard/InfoCard'
 import { SampleAreaChart, SampleChart1, SampleChart2, SampleChart3 } from '@/components/SampleCharts'
 
 const Content = () => {
@@ -10,15 +10,15 @@ const Content = () => {
         <h1 className="page-title text-2xl font-semibold mb-12 font-poppins"> Dashboard</h1>
         <div className="content-flex flex gap-3">
           <div className='flex-1'>
-            <div className="grid grid-cols-1 md:grid-cols-2">
+            {/* <div className="grid grid-cols-1 md:grid-cols-2">
               <SampleChart1 />
               <SampleChart2 />
               <SampleChart3 />
               <SampleAreaChart />
-            </div>
+            </div> */}
             <div className='flex gap-3'>
-              <BatteryCard soc={82} voltage={51.2} current={1.2} />
-              <IMUCard/>
+              <BatteryCardV2 soc={82} voltage={51.2} current={1.2} />
+              <IMUCardV2/>
             </div>
           </div>
           <div>

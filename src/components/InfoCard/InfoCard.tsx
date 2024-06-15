@@ -3,7 +3,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { GiBatteryPackAlt } from 'react-icons/gi';
+import { GiBatteryPack, GiBatteryPackAlt } from 'react-icons/gi';
 
 import './style.css'
 import { FaRegCompass } from 'react-icons/fa';
@@ -36,7 +36,7 @@ const IMUCard: React.FC = () => {
   }, [yawTopic])
 
   return (
-    <div className='info-card flex flex-1 w-64 h-44 p-3 gap-2 bg-white shadow-lg rounded-xl hover:shadow-none'>
+    <div className='info-card flex flex-1 w-64 h-60 p-3 gap-2 bg-white shadow-lg rounded-xl hover:shadow-none'>
       <div className="info flex flex-col flex-1 justify-between">
         <div className='flex flex-col'>
           <span className='font-poppins font-light text-xl'>IMU</span>
@@ -59,9 +59,33 @@ const IMUCard: React.FC = () => {
   )
 }
 
+const IMUCardV2: React.FC = () => {
+  const [yaw, setYaw] = useState<number>(0);
+  const yawTopic = useMemo(() => new YawTopic(), []);
+
+  useEffect(() => {
+    yawTopic.subscribe((msg) => {
+      setYaw(msg.data);
+    })
+
+    return () => {
+      yawTopic.unsubscribe();
+    }
+  }, [yawTopic])
+
+  return (
+    <div className='info-card flex flex-col items-center justify-between flex-1 w-64 h-60 p-3 gap-2 bg-white shadow-lg rounded-xl hover:shadow-none'>
+      <FaRegCompass className='text-7xl' />
+      <h1 className='font-poppins'>IMU</h1>
+      <h1 className='font-poppins text-6xl font-bold'>{yaw.toFixed(1)}</h1>
+      <h1 className='font-poppins'>{'Degree(s)'}</h1>
+    </div>
+  )
+}
+
 const BatteryCard: React.FC<InfoCardProps> = ({ soc, voltage, current = 0 }) => {
   return (
-    <div className='info-card flex flex-1 w-64 h-44 p-3 gap-2 bg-white shadow-lg rounded-xl hover:shadow-none'>
+    <div className='info-card flex flex-1 w-64 h-60 p-3 gap-2 bg-white shadow-lg rounded-xl hover:shadow-none'>
       <div className="info flex flex-col flex-1 justify-between">
         <div className='flex flex-col'>
           <span className='font-poppins font-light text-xl'>BATTERY</span>
@@ -74,6 +98,29 @@ const BatteryCard: React.FC<InfoCardProps> = ({ soc, voltage, current = 0 }) => 
         <CircularProgressbar value={soc} maxValue={100} text={`${soc}%`} />
       </div>
 
+    </div>
+  )
+}
+
+const BatteryCardV2: React.FC<InfoCardProps> = ({ soc, voltage, current = 0 }) => {
+  return (
+    <div className='info-card flex flex-col items-center justify-evenly flex-1 w-64 h-60 p-3 gap-2 bg-white shadow-lg rounded-xl hover:shadow-none'>
+      <GiBatteryPack className='text-6xl' />
+      <h1 className='font-poppins'>Battery</h1>
+      <div className='flex justify-center items-end'>
+        <h1 className='font-poppins text-6xl font-bold'>{voltage}</h1>
+        <h1 className='font-poppins text-lg'>%</h1>
+      </div>
+      <div className='flex w-full justify-between max-w-32'>
+        <div className='text-center'>
+          <h2 className='text-xs'>Voltage</h2>
+          <h1 className='font-poppins font-bold'>{voltage} V</h1>
+        </div>
+        <div className='text-center'>
+          <h2 className='text-xs'>Current</h2>
+          <h1 className='font-poppins font-bold'>{current} A</h1>
+        </div>
+      </div>
     </div>
   )
 }
@@ -214,6 +261,8 @@ const MotorErrorCard: React.FC<MotorErrorProps> = ({ errorCode }) => {
 
 export {
   BatteryCard,
+  BatteryCardV2,
   IMUCard,
+  IMUCardV2,
   MotorErrorCard
 }
