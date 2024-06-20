@@ -8,6 +8,7 @@ import { RiDashboardFill } from 'react-icons/ri'
 import { FaChevronLeft } from 'react-icons/fa'
 import { AiOutlineBarChart, AiOutlineLogout, AiOutlineSetting } from 'react-icons/ai'
 import { MdPlaylistAddCheck, MdSpeed } from 'react-icons/md'
+import { usePathname } from 'next/navigation'
 
 interface ItemProps {
   href: string,
@@ -24,7 +25,7 @@ const SidebarItem: React.FC<ItemProps> = ({ href, icon, label, open, active = fa
         <span className='text-2xl'>
           {icon}
         </span>
-        <span className={`origin-left ${!open && 'scale-0'}`}>
+        <span className={`origin-left whitespace-nowrap ${!open && 'scale-0'}`}>
           {label}
         </span>
       </Link>
@@ -34,12 +35,13 @@ const SidebarItem: React.FC<ItemProps> = ({ href, icon, label, open, active = fa
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
+  const currentPath = usePathname();
 
   return (
     <div className={`sidebar bg-primary h-screen flex flex-col pl-3 py-5 pt-8 ${open ? 'w-72' : 'w-20'}`}>
       <div className='logo flex items-center justify-between min-h-14 pr-5'>
         <span className={`${!open ? 'w-0' : 'w-72'}`}>
-          <Image src={'/logoFull.png'} height={50} width={200} alt='' className={`overflow-hidden `} />
+          <Image src={'/logoFull.png'} height={50} width={200} alt=''  priority={true}/>
         </span>
         <span className='w-10'>
           <FaChevronLeft className={`bg-white text-3xl py-1 px-2 rounded-lg cursor-pointer ${!open && 'rotate-180 ml-1'}`} onClick={() => { setOpen(!open) }} />
@@ -47,14 +49,14 @@ const Sidebar = () => {
       </div>
 
       <div className="flex flex-col mt-10 gap-2 flex-1">
-        <SidebarItem href='#' icon={<RiDashboardFill />} label='Dashboard' open={open} active={true} />
-        <SidebarItem href='#' icon={<MdSpeed />} label='Set Command' open={open} />
-        <SidebarItem href='#' icon={<AiOutlineBarChart />} label='Analytics' open={open} />
-        <SidebarItem href='#' icon={<MdPlaylistAddCheck />} label='Test' open={open} />
+        <SidebarItem href='/dashboard' icon={<RiDashboardFill />} label='Dashboard' open={open} active={currentPath === '/dashboard'} />
+        <SidebarItem href='/set_command' icon={<MdSpeed />} label='Set Command' open={open} active={currentPath === '/set_command'}/>
+        <SidebarItem href='/analytics' icon={<AiOutlineBarChart />} label='Analytics' open={open} active={currentPath === '/analytics'}/>
+        <SidebarItem href='/autotest' icon={<MdPlaylistAddCheck />} label='Auto Test' open={open} active={currentPath === '/autotest'}/>
       </div>
 
-      <div className="flex flex-col border-t mr-4 border-black">
-        <SidebarItem href='#' icon={<AiOutlineSetting />} label='Setting' open={open} />
+      <div className="flex flex-col border-t border-black">
+        <SidebarItem href='setting' icon={<AiOutlineSetting />} label='Setting' open={open} active={currentPath === '/setting'}/>
         <SidebarItem href='#' icon={<AiOutlineLogout />} label='Logout' open={open} />
       </div>
     </div>
