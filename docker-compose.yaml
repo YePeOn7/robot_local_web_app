@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  web-config:
+    container_name: web-config
+    build: .
+    network_mode: host
+    privileged: true 
