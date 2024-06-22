@@ -1,6 +1,7 @@
 import React, { FormEventHandler, useState } from 'react'
 import Sidebar from '@/components/Sidebar'
 import FormUpgradeFirmware from './FormUpgradeFirmware'
+import FormUpgradeFirmware2 from './FormUpgradeFirmware2'
 
 const Content: React.FC = () => {
   return (
@@ -9,7 +10,8 @@ const Content: React.FC = () => {
         <h1 className="page-title text-2xl font-semibold mb-12 font-poppins">Set Command</h1>
         <div className="flex flex-col gap-3 bg-white rounded-xl pb-5 overflow-hidden">
           <span className='w-full h-10 bg-primary flex items-center pl-5 font-bold'>Upgrade MCU Firmware</span>
-          <FormUpgradeFirmware/>
+          {/* <FormUpgradeFirmware/> */}
+          <FormUpgradeFirmware2/>
         </div>
       </div>
     </div>

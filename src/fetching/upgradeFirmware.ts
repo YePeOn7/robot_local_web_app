@@ -7,7 +7,8 @@ const upgradeFirmware = async (form:FormData) => {
             method:'POST',
             body: form
         })
-        return res;
+        const resJson = await res.json()
+        return resJson;
     } catch (error) {
         return Error("Error occured when uploading firmware");
     }
