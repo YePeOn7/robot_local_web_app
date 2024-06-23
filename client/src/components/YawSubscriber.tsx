@@ -8,7 +8,7 @@ const YawSubscriber : React.FC = () => {
   const [yaw, setYaw] = useState<number | null>(null);
 
   useEffect(() => {
-    const yawTopic = new YawTopic();
+    const yawTopic = new YawTopic("");
     yawTopic.subscribe((msg) => {
       setYaw(msg.data);
     })

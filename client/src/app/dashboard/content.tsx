@@ -42,7 +42,6 @@ const ContentOld = () => {
 const Content: React.FC<ContentProps> = ({ ip }) => {
   const { setServerIp, serverIp } = useDashboardContext();
   useEffect(() => {
-    console.log("Server IP Coy:", ip)
     setServerIp(ip);
   }, [ip, setServerIp])
 

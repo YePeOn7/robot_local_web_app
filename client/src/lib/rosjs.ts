@@ -4,7 +4,6 @@ let ros: ROSLIB.Ros | null = null;
 
 const initRos = (ip: string|null) => {
   if(ip){
-    console.log("Creating ros:", ip)
     ros = new ROSLIB.Ros({
       url: `ws://${ip}:9090`,
     });
