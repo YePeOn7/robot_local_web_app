@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  web-config-server:
+    container_name: web-config-server
+    image: yepeon7/web-config-server
+    network_mode: host
+    privileged: true 
+  web-config-client:
+    container_name: web-config-client
+    image: yepeon7/web-config-client
+    network_mode: host
+    privileged: true 
