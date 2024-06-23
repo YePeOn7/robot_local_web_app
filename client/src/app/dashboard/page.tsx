@@ -5,6 +5,7 @@ import ContentContainer from './content';
 
 const Dashboard = async () => {
   const ip = await getServerIPAddress();
+  console.log("Get Server IP:", ip);
   return (
     <div className='flex'>
       <Sidebar />

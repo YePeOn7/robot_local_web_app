@@ -42,8 +42,10 @@ const ContentOld = () => {
 const Content: React.FC<ContentProps> = ({ ip }) => {
   const { setServerIp, serverIp } = useDashboardContext();
   useEffect(() => {
-    setServerIp(ip);
-  }, [ip, setServerIp])
+    const ip2 = window.location.hostname;
+    console.log(">>>>>>>>", ip2);
+    setServerIp(ip2);
+  }, [setServerIp])
 
   return (
     <div className='bg-of-content py-7 h-screen bg-primary flex-1 '>
