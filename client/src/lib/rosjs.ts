@@ -1,24 +1,28 @@
-import ROSLIB from 'roslib';
+import ROSLIB from "roslib";
 
-const ros = new ROSLIB.Ros({
-  url: 'ws://localhost:9090' // Update with your ROS Bridge URL
-});
+let ros: ROSLIB.Ros | null = null;
 
-// Handle connection and error events
-ros.on('connection', () => {
-  console.log('Connected to ROS bridge');
-});
-
-ros.on('error', (error) => {
-  console.error('Error connecting to ROS bridge', error);
-});
-
-ros.on('close', () => {
-  console.log('Connection to ROS bridge closed');
-});
-
-export{
-  ros,
-  ROSLIB
-} 
+const initRos = (ip: string|null) => {
+  if(ip){
+    console.log("Creating ros:", ip)
+    ros = new ROSLIB.Ros({
+      url: `ws://${ip}:9090`,
+    });
+    // Handle connection and error events
+    ros.on("connection", () => {
+      console.log("Connected to ROS bridge");
+    });
   
+    ros.on("error", (error) => {
+      console.error("Error connecting to ROS bridge", error);
+    });
+  
+    ros.on("close", () => {
+      console.log("Connection to ROS bridge closed");
+    });
+  }
+
+  return ros;
+};
+
+export { ros, ROSLIB, initRos };

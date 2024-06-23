@@ -11,6 +11,7 @@ import { ImCompass } from 'react-icons/im';
 import { IconErrorStatus } from '../IconStatus';
 import YawTopic from '@/ros_topics/yaw';
 import { Button } from "@/components/ui/button"
+import { useDashboardContext } from '@/app/dashboard/context';
 
 interface InfoCardProps {
   soc: number,
@@ -34,8 +35,9 @@ interface ImuCardProps {
 }
 
 const IMUCard: React.FC = () => {
+  const { serverIp } = useDashboardContext();
   const [yaw, setYaw] = useState<number>(0);
-  const yawTopic = useMemo(() => new YawTopic(), []);
+  const yawTopic = useMemo(() => new YawTopic(serverIp), [serverIp]);
 
   useEffect(() => {
     yawTopic.subscribe((msg) => {
@@ -72,17 +74,18 @@ const IMUCard: React.FC = () => {
 }
 
 const IMUCardV2: React.FC<ImuCardProps> = ({className}) => {
+  const { serverIp } = useDashboardContext();
   const [yaw, setYaw] = useState<number>(0);
-  const yawTopic = useMemo(() => new YawTopic(), []);
+  const yawTopic = useMemo(() => new YawTopic(serverIp), [serverIp]);
 
   useEffect(() => {
     yawTopic.subscribe((msg) => {
       setYaw(msg.data);
     })
 
-    return () => {
-      yawTopic.unsubscribe();
-    }
+    // return () => {
+    //   yawTopic.unsubscribe();
+    // }
   }, [yawTopic])
 
   return (
