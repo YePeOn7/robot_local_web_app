@@ -6,6 +6,8 @@ import { SampleAreaChart, SampleChart1, SampleChart2, SampleChart3 } from '@/com
 import PowerInfoCard from '@/components/PowerInfoCard'
 import { getServerIPAddress } from '@/serverAction/getIp'
 import { DashboardContextProvider, useDashboardContext } from './context'
+import TemperatureCard from '@/components/InfoCard/temperatureCard'
+import HumidityCard from '@/components/InfoCard/Humidity'
 
 interface ContentProps {
   ip: string
@@ -52,12 +54,13 @@ const Content: React.FC<ContentProps> = ({ ip }) => {
       <div className="content bg-bgColor h-full rounded-l-2xl px-6 py-4 overflow-y-scroll">
         <h1 className="page-title text-2xl font-semibold mb-12 font-poppins"> Dashboard</h1>
         <div className="content-grid grid grid-cols-12 gap-3">
-          <BatteryCardV2 className='col-span-4' soc={82} voltage={51.2} current={1.2} />
-          <IMUCardV2 className='col-span-4' />
+          <BatteryCardV2 className='col-span-2' soc={82} voltage={51.2} current={1.2} />
+          <IMUCardV2 className='col-span-2' />
+          <TemperatureCard className='col-span-2' />
+          <HumidityCard className='col-span-2' />
           <MotorErrorCard errorCode={0x800_0000} className='col-span-4 row-span-2' />
           <PowerInfoCard className='col-span-8 h-80' />
         </div>
-        <p>IP: {serverIp}</p>
       </div>
     </div>
   )
